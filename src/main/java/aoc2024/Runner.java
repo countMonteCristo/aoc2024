@@ -59,35 +59,34 @@ class Runner {
         System.out.println("========================================");
     }
 
+    static void runRange(Integer dayFrom, Integer dayTo) {
+        if (dayTo < dayFrom) {
+            System.out.printf("Bad range: %d to %d\n", dayFrom, dayTo);
+            System.exit(1);
+        }
+
+        String message = String.format("Check days %d-%d\n", dayFrom, dayTo);
+        List<DayConfig> configs = IntStream
+            .range(dayFrom, dayTo+1)
+            .mapToObj(day -> new DayConfig(day, ""))
+            .collect(Collectors.toList());
+
+        runDays(configs, message);
+    }
+
     public static void main(String[] args) throws Exception {
+        if (args.length == 0) {
+            runRange(1, 25);
+            return;
+        }
         String dayId = args[0];
 
         if (dayId.equals("days")) {
             Integer dayFrom = Integer.valueOf(args[1]);
             Integer dayTo = Integer.valueOf(args[2]);
-            if (dayTo < dayFrom) {
-                System.out.printf("Bad range: %d to %d\n", dayFrom, dayTo);
-                System.exit(1);
-            }
-
-            String message = String.format("Check days %d-%d\n", dayFrom, dayTo);
-            List<DayConfig> configs = IntStream
-                .range(dayFrom, dayTo+1)
-                .mapToObj(day -> new DayConfig(day, ""))
-                .collect(Collectors.toList());
-
-            runDays(configs, message);
+            runRange(dayFrom, dayTo);
         } else if (dayId.equals("all")) {
-            Integer dayFrom = 1;
-            Integer dayTo = 25;
-
-            String message = String.format("Check days %d-%d\n", dayFrom, dayTo);
-            List<DayConfig> configs = IntStream
-                .range(dayFrom, dayTo+1)
-                .mapToObj(day -> new DayConfig(day, ""))
-                .collect(Collectors.toList());
-
-            runDays(configs, message);
+            runRange(1, 25);
         } else {
             Integer id = Integer.valueOf(dayId);
             String inputFn = (args.length >= 2) ? args[1] : "";

@@ -24,7 +24,7 @@ Run specified range of days:
 
 Run all days (1-25):
 ```bash
-./run.sh all
+./run.sh [all]
 ```
 
 Run single day with custom file as an input:
