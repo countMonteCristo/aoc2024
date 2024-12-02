@@ -1,5 +1,5 @@
 # aoc2024
-[Advent of Code 2024](https://adventofcode.com/2024) in Java
+My solutions to [Advent of Code 2024](https://adventofcode.com/2024) in Java
 
 Usage
 -----
@@ -17,9 +17,14 @@ Only build:
 ./build.sh
 ```
 
-Run specified rande of days:
+Run specified range of days:
 ```bash
-./run.sh check 2 8
+./run.sh days 2 8
+```
+
+Run all days (1-25):
+```bash
+./run.sh all
 ```
 
 Run single day with custom file as an input:

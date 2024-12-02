@@ -29,7 +29,7 @@ class Runner {
         String className = String.format("aoc2024.days.Day%s", config.dayId);
 
         try {
-            IDay day = (IDay) Class.forName(className).getDeclaredConstructor().newInstance();
+            AbstractDay day = (AbstractDay) Class.forName(className).getDeclaredConstructor().newInstance();
 
             String label = config.strict ? "" : " (non-strict mode)";
             System.out.printf("Day %s%s:\n", config.dayId, label);
@@ -42,6 +42,7 @@ class Runner {
         } catch (IOException | ClassNotFoundException | IllegalAccessException | IllegalArgumentException |
                  InstantiationException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
             System.err.printf("[ERROR] Can not run day %s:\n", config.dayId);
+            System.err.println(e);
             System.exit(1);
         }
     }
@@ -61,13 +62,24 @@ class Runner {
     public static void main(String[] args) throws Exception {
         String dayId = args[0];
 
-        if (dayId.equals("check")) {
+        if (dayId.equals("days")) {
             Integer dayFrom = Integer.valueOf(args[1]);
             Integer dayTo = Integer.valueOf(args[2]);
             if (dayTo < dayFrom) {
                 System.out.printf("Bad range: %d to %d\n", dayFrom, dayTo);
                 System.exit(1);
             }
+
+            String message = String.format("Check days %d-%d\n", dayFrom, dayTo);
+            List<DayConfig> configs = IntStream
+                .range(dayFrom, dayTo+1)
+                .mapToObj(day -> new DayConfig(day, ""))
+                .collect(Collectors.toList());
+
+            runDays(configs, message);
+        } else if (dayId.equals("all")) {
+            Integer dayFrom = 1;
+            Integer dayTo = 25;
 
             String message = String.format("Check days %d-%d\n", dayFrom, dayTo);
             List<DayConfig> configs = IntStream
