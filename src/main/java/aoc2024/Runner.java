@@ -34,14 +34,14 @@ class Runner {
             day.prepare(config.inputFile);
             day.part1(config.strict);
             day.part2(config.strict);
-            
+
             System.out.println();
         } catch (Exception e) {
             System.err.printf("[ERROR] Can not run day %s:\n", config.dayId);
             e.printStackTrace();
             System.exit(1);
         }
-        
+
     }
 
     public static void main(String[] args) throws Exception {
