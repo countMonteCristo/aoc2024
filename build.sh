@@ -5,4 +5,5 @@ set -e
 
 shopt -s globstar
 
-javac -Xdiags:verbose -d build ./src/**/*.java
+mkdir -p bin
+javac -Xlint -Xdiags:verbose -d bin ./src/**/*.java

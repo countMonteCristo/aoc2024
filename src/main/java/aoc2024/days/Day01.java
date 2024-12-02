@@ -1,5 +1,6 @@
 package aoc2024.days;
 
+import aoc2024.utils.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,21 +9,20 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import aoc2024.utils.*;
-import aoc2024.days.IDay;
-
 
 public class Day01 implements IDay {
 
     List<String> list;
 
+    @Override
     public void prepare(String fn) throws IOException {
         list = Utils.readFile(fn);
     }
 
+    @Override
     public void part1(boolean strict) {
-        ArrayList<Integer> first = new ArrayList<Integer>();
-        ArrayList<Integer> second = new ArrayList<Integer>();
+        ArrayList<Integer> first = new ArrayList<>();
+        ArrayList<Integer> second = new ArrayList<>();
 
         list.stream()
             .map(line -> Stream.of(line.split("   "))
@@ -44,9 +44,10 @@ public class Day01 implements IDay {
         Utils.<Integer>check(1, res, 2000468, strict);
     }
 
+    @Override
     public void part2(boolean strict) {
-        ArrayList<Integer> first = new ArrayList<Integer>();
-        HashMap<Integer,Integer> second = new HashMap<Integer,Integer>();
+        ArrayList<Integer> first = new ArrayList<>();
+        HashMap<Integer,Integer> second = new HashMap<>();
 
         list.stream()
             .map(line -> Stream.of(line.split("   "))

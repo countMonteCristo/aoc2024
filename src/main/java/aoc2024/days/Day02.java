@@ -1,15 +1,12 @@
 package aoc2024.days;
 
+import aoc2024.utils.*;
 import java.io.IOException;
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import aoc2024.utils.*;
-import aoc2024.days.IDay;
 
 
 public class Day02 implements IDay {
@@ -46,6 +43,7 @@ public class Day02 implements IDay {
         return streams.stream().filter(p).count();
     }
 
+    @Override
     public void prepare(String fn) throws IOException {
         streams = Utils
             .readFile(fn)
@@ -56,10 +54,12 @@ public class Day02 implements IDay {
             .collect(Collectors.toList());
     }
 
+    @Override
     public void part1(boolean strict) {
         Utils.<Long>check(1, processStreams(streams, Day02::isSafe), 224L, strict);
     }
 
+    @Override
     public void part2(boolean strict) {
         Utils.<Long>check(2, processStreams(streams, Day02::isSafeSkipped), 293L, strict);
     }
