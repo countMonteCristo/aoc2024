@@ -47,7 +47,7 @@ public class Day02 extends AbstractDay {
     @Override
     public void prepare(String fn) throws IOException {
         streams = Utils
-            .readFile(fn).stream()
+            .readLines(fn).stream()
             .map(line -> Stream.of(line.split(" "))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList()))

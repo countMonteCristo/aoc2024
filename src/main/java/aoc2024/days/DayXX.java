@@ -1,15 +1,17 @@
 package aoc2024.days;
 
 import java.io.IOException;
+// import java.util.List;
 
 // import aoc2024.utils.*;
 
 
 public class DayXX extends AbstractDay {
+    // List<String> lines;
 
     @Override
     public void prepare(String fn) throws IOException {
-        // List<String> lines = Utils.readFile(fn);
+        // lines = Utils.readLines(fn);
     }
 
     @Override

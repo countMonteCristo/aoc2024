@@ -55,7 +55,7 @@ class Runner {
 
         configs
             .stream()
-            .forEach(config -> runDay(config));
+            .forEach(Runner::runDay);
         System.out.println("========================================");
     }
 
@@ -82,13 +82,13 @@ class Runner {
         String dayId = args[0];
 
         if (dayId.equals("days")) {
-            Integer dayFrom = Integer.valueOf(args[1]);
-            Integer dayTo = Integer.valueOf(args[2]);
+            Integer dayFrom = Integer.parseInt(args[1]);
+            Integer dayTo = Integer.parseInt(args[2]);
             runRange(dayFrom, dayTo);
         } else if (dayId.equals("all")) {
             runRange(1, 25);
         } else {
-            Integer id = Integer.valueOf(dayId);
+            Integer id = Integer.parseInt(dayId);
             String inputFn = (args.length >= 2) ? args[1] : "";
 
             runDays(Arrays.asList(new DayConfig(id, inputFn)), "");

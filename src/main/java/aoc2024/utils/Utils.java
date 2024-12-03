@@ -3,6 +3,8 @@ package aoc2024.utils;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 
@@ -19,7 +21,7 @@ public class Utils {
         System.out.println(builder.toString());
     }
 
-    public static ArrayList<String> readFile(String fn) throws IOException {
+    public static ArrayList<String> readLines(String fn) throws IOException {
         ArrayList<String> result = new ArrayList<String>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(fn))) {
@@ -30,5 +32,9 @@ public class Utils {
         }
 
         return result;
+    }
+
+    public static String readAll(String fn) throws IOException {
+        return Files.readString(Path.of(fn));
     }
 }
