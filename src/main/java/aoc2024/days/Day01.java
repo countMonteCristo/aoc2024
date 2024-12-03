@@ -32,8 +32,7 @@ public class Day01 extends AbstractDay {
 
         list.forEach(item -> {
             first.add(item.get(0));
-            second.add(item.get(1));
-        });
+            second.add(item.get(1));});
 
         first.sort(null);
         second.sort(null);
@@ -48,16 +47,16 @@ public class Day01 extends AbstractDay {
 
     @Override
     public void part2Impl(boolean strict) {
-        ArrayList<Integer> first = new ArrayList<>();
+        HashMap<Integer,Integer> first = new HashMap<>();
         HashMap<Integer,Integer> second = new HashMap<>();
 
         list.forEach(item -> {
-            first.add(item.get(0));
+            first.merge(item.get(0), 1, Integer::sum);
             second.merge(item.get(1), 1, Integer::sum);
         });
 
-        Integer res = first.stream()
-            .map(x -> x * second.getOrDefault(x, 0))
+        Integer res = first.entrySet().stream()
+            .map(e -> e.getKey() * e.getValue() * second.getOrDefault(e.getKey(), 0))
             .reduce(0, Integer::sum);
 
         check(res, 18567089, strict);

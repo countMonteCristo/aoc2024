@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import aoc2024.utils.*;
@@ -15,10 +16,10 @@ public class Day02 extends AbstractDay {
     List<List<Integer>> streams;
 
     public static boolean isSafe(List<Integer> stream) {
-        Integer first = stream.get(0);
-        Integer last = stream.get(stream.size() - 1);
+        Integer first = stream.getFirst();
+        Integer last = stream.getLast();
         int sign = Integer.signum(last - first);
-        for (int i=1; i<stream.size(); i++) {
+        for (int i = 1; i < stream.size(); i++) {
             int diff = stream.get(i) - stream.get(i-1);
             if ((Integer.signum(diff) != sign) || (Math.abs(diff) < 1) || (Math.abs(diff) > 3))
                 return false;
@@ -27,15 +28,13 @@ public class Day02 extends AbstractDay {
     }
 
     public static boolean isSafeSkipped(List<Integer> stream) {
-        if (Day02.isSafe(stream)) {
-            return true;
-        }
+        if (Day02.isSafe(stream)) return true;
+
         for (int i = 0; i < stream.size(); i++) {
             List<Integer> x = new ArrayList<>(stream);
             x.remove(i);
-            if (Day02.isSafe(x)) {
-                return true;
-            }
+
+            if (Day02.isSafe(x)) return true;
         }
         return false;
     }
