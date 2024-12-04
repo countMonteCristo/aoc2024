@@ -11,7 +11,7 @@ public class DayXX extends AbstractDay {
 
     @Override
     public void prepare(String fn) throws IOException {
-        // lines = Utils.readLines(fn);
+        // lines = IO.readLines(fn);
     }
 
     @Override

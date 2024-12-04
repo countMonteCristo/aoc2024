@@ -19,7 +19,7 @@ public class Day03 extends AbstractDay {
 
     @Override
     public void prepare(String fn) throws IOException {
-        content = Utils.readAll(fn);
+        content = IO.readAll(fn);
     }
 
     @Override

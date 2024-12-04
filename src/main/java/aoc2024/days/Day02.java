@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import aoc2024.utils.*;
@@ -45,7 +44,7 @@ public class Day02 extends AbstractDay {
 
     @Override
     public void prepare(String fn) throws IOException {
-        streams = Utils
+        streams = IO
             .readLines(fn).stream()
             .map(line -> Stream.of(line.split(" "))
                 .map(Integer::parseInt)
