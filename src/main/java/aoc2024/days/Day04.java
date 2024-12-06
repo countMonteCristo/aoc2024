@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import aoc2024.utils.*;
+import aoc2024.utils.IO;
+import aoc2024.utils.Pair;
 
 
 public class Day04 extends AbstractDay {

@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import aoc2024.utils.*;
+import aoc2024.utils.IO;
 
 
 public class Day02 extends AbstractDay {

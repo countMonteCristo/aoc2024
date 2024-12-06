@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import aoc2024.utils.*;
+import aoc2024.utils.IO;
 
 
 public class Day01 extends AbstractDay {

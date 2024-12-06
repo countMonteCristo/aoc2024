@@ -1,5 +1,6 @@
 package aoc2024.utils;
 
+
 public class Utils {
     public static<T> void check(int id, T actual, T expected, boolean strict, Long elapsedMs) {
         StringBuilder builder = new StringBuilder();

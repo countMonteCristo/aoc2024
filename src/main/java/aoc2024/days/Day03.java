@@ -5,7 +5,7 @@ import java.util.function.Function;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
-import aoc2024.utils.*;
+import aoc2024.utils.IO;
 
 
 public class Day03 extends AbstractDay {
