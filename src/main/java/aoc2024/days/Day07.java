@@ -9,6 +9,7 @@ import aoc2024.utils.IO;
 
 
 public class Day07 extends AbstractDay {
+    
     List<TestCase> cases;
 
     record TestCase(Long result, List<Long> args){}

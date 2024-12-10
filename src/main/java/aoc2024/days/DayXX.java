@@ -1,9 +1,6 @@
 package aoc2024.days;
 
 import java.io.IOException;
-// import java.util.List;
-
-// import aoc2024.utils.*;
 
 
 public class DayXX extends AbstractDay {
