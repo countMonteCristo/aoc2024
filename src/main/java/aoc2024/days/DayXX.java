@@ -12,12 +12,12 @@ public class DayXX extends AbstractDay {
     }
 
     @Override
-    public void part1Impl(boolean strict) {
-        check(0, 0, strict);
+    public boolean part1Impl(boolean strict) {
+        return check(0, 0, strict);
     }
 
     @Override
-    public void part2Impl(boolean strict) {
-        check(0, 0, strict);
+    public boolean part2Impl(boolean strict) {
+        return check(0, 0, strict);
     }
 }

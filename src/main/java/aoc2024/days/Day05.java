@@ -60,16 +60,16 @@ public class Day05 extends AbstractDay {
     }
 
     @Override
-    public void part1Impl(boolean strict) {
-        check(updates.stream().map(this::processUpdate).reduce(0, Integer::sum), 5713, strict);
+    public boolean part1Impl(boolean strict) {
+        return check(updates.stream().map(this::processUpdate).reduce(0, Integer::sum), 5713, strict);
     }
 
     @Override
-    public void part2Impl(boolean strict) {
+    public boolean part2Impl(boolean strict) {
         int result = updates.stream()
             .filter(u -> processUpdate(u).equals(0))
             .map(this::processsBrokenUpdate)
             .reduce(0, Integer::sum);
-        check(result, 5180, strict);
+        return check(result, 5180, strict);
     }
 }

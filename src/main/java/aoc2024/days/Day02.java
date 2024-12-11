@@ -53,12 +53,12 @@ public class Day02 extends AbstractDay {
     }
 
     @Override
-    public void part1Impl(boolean strict) {
-        check(processStreams(streams, Day02::isSafe), 224L, strict);
+    public boolean part1Impl(boolean strict) {
+        return check(processStreams(streams, Day02::isSafe), 224L, strict);
     }
 
     @Override
-    public void part2Impl(boolean strict) {
-        check(processStreams(streams, Day02::isSafeSkipped), 293L, strict);
+    public boolean part2Impl(boolean strict) {
+        return check(processStreams(streams, Day02::isSafeSkipped), 293L, strict);
     }
 }

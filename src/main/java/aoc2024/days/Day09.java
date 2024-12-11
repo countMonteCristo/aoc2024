@@ -126,14 +126,14 @@ public class Day09 extends AbstractDay {
     }
 
     @Override
-    public void part1Impl(boolean strict) {
+    public boolean part1Impl(boolean strict) {
         List<Integer> memory = fillMemory();
         defrag(memory);
-        check(checkSum(memory), 6432869891895L, strict);
+        return check(checkSum(memory), 6432869891895L, strict);
     }
 
     @Override
-    public void part2Impl(boolean strict) {
+    public boolean part2Impl(boolean strict) {
         List<Integer> files = buildFilePositions();
         LinkedList<Block> emptyBlocks = buildEmptyBlocks();
 
@@ -151,6 +151,6 @@ public class Day09 extends AbstractDay {
 
         }
 
-        check(checkSumFiles(files), 6467290479134L, strict);
+        return check(checkSumFiles(files), 6467290479134L, strict);
     }
 }

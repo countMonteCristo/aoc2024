@@ -40,7 +40,7 @@ public class Day04 extends AbstractDay {
 
     int find(String needle, int r, int c) {
         int count = 0;
-        for (Pair<Integer,Integer> pair : dirs) {
+        for (var pair : dirs) {
             if (contains(needle, r, c, pair.first(), pair.second()))
                 count++;
         }
@@ -68,12 +68,12 @@ public class Day04 extends AbstractDay {
     }
 
     @Override
-    public void part1Impl(boolean strict) {
-        check(count("XMAS", this::find), 2547, strict);
+    public boolean part1Impl(boolean strict) {
+        return check(count("XMAS", this::find), 2547, strict);
     }
 
     @Override
-    public void part2Impl(boolean strict) {
-        check(count("MAS", this::find_x), 1939, strict);
+    public boolean part2Impl(boolean strict) {
+        return check(count("MAS", this::find_x), 1939, strict);
     }
 }

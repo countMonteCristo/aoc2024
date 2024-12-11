@@ -23,12 +23,12 @@ public class Day03 extends AbstractDay {
     }
 
     @Override
-    public void part1Impl(boolean strict) {
-        check(pat1.matcher(content).results().map(evalMul).reduce(0L, Long::sum), 168539636L, strict);
+    public boolean part1Impl(boolean strict) {
+        return check(pat1.matcher(content).results().map(evalMul).reduce(0L, Long::sum), 168539636L, strict);
     }
 
     @Override
-    public void part2Impl(boolean strict) {
+    public boolean part2Impl(boolean strict) {
         enabled = true;
         Long result = pat2.matcher(content).results()
             .map(r -> {
@@ -37,7 +37,7 @@ public class Day03 extends AbstractDay {
                 enabled = (r.group("dont") == null) && (r.group("do") != null);
                 return 0L;})
             .reduce(0L, Long::sum);
-        check(result, 97529391L, strict);
+        return check(result, 97529391L, strict);
     }
 }
 

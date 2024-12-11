@@ -26,7 +26,7 @@ public class Day01 extends AbstractDay {
     }
 
     @Override
-    public void part1Impl(boolean strict) {
+    public boolean part1Impl(boolean strict) {
         ArrayList<Integer> first = new ArrayList<>();
         ArrayList<Integer> second = new ArrayList<>();
 
@@ -42,11 +42,11 @@ public class Day01 extends AbstractDay {
             .map(i -> Math.abs(first.get(i) - second.get(i)))
             .sum();
 
-        check(res, 2000468, strict);
+        return check(res, 2000468, strict);
     }
 
     @Override
-    public void part2Impl(boolean strict) {
+    public boolean part2Impl(boolean strict) {
         HashMap<Integer,Integer> first = new HashMap<>();
         HashMap<Integer,Integer> second = new HashMap<>();
 
@@ -59,6 +59,6 @@ public class Day01 extends AbstractDay {
             .map(e -> e.getKey() * e.getValue() * second.getOrDefault(e.getKey(), 0))
             .reduce(0, Integer::sum);
 
-        check(res, 18567089, strict);
+        return check(res, 18567089, strict);
     }
 }

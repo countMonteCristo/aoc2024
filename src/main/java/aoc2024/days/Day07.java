@@ -9,7 +9,7 @@ import aoc2024.utils.IO;
 
 
 public class Day07 extends AbstractDay {
-    
+
     List<TestCase> cases;
 
     record TestCase(Long result, List<Long> args){}
@@ -63,21 +63,21 @@ public class Day07 extends AbstractDay {
     }
 
     @Override
-    public void part1Impl(boolean strict) {
+    public boolean part1Impl(boolean strict) {
         long result = cases.stream()
             .filter(t -> checkSmart(t, t.args.size()-1, t.result))
             .map(t -> t.result)
             .reduce(0L, Long::sum);
-        check(result, 4998764814652L, strict);
+        return check(result, 4998764814652L, strict);
     }
 
     @Override
-    public void part2Impl(boolean strict) {
+    public boolean part2Impl(boolean strict) {
         long result = cases.stream()
             .filter(t -> checkSmartEx(t, t.args.size()-1, t.result))
             .map(t -> t.result)
             .reduce(0L, Long::sum);
 
-        check(result, 37598910447546L, strict);
+        return check(result, 37598910447546L, strict);
     }
 }

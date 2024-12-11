@@ -104,12 +104,12 @@ public class Day08 extends AbstractDay {
     }
 
     @Override
-    public void part1Impl(boolean strict) {
-        check(solve(this::getAntinodes), 249, strict);
+    public boolean part1Impl(boolean strict) {
+        return check(solve(this::getAntinodes), 249, strict);
     }
 
     @Override
-    public void part2Impl(boolean strict) {
-        check(solve(this::getAllAntinodes), 905, strict);
+    public boolean part2Impl(boolean strict) {
+        return check(solve(this::getAllAntinodes), 905, strict);
     }
 }

@@ -12,23 +12,23 @@ public abstract class AbstractDay {
     protected Long currentStartMs;
 
     public abstract void prepare(String fn) throws IOException;
-    public abstract void part1Impl(boolean strict);
-    public abstract void part2Impl(boolean strict);
+    public abstract boolean part1Impl(boolean strict);
+    public abstract boolean part2Impl(boolean strict);
 
-    public void part1(boolean strict) {
+    public boolean part1(boolean strict) {
         setCurrent(Part1);
-        part1Impl(strict);
+        return part1Impl(strict);
     }
-    public void part2(boolean strict) {
+    public boolean part2(boolean strict) {
         setCurrent(Part2);
-        part2Impl(strict);
+        return part2Impl(strict);
     }
 
     private void setCurrent(Integer part) {
         currentPart = part;
         currentStartMs = System.currentTimeMillis();
     }
-    protected <T> void check(T actual, T expected, boolean strict) {
-        Utils.<T>check(currentPart, actual, expected, strict, System.currentTimeMillis() - currentStartMs);
+    protected <T> boolean check(T actual, T expected, boolean strict) {
+        return Utils.<T>check(currentPart, actual, expected, strict, System.currentTimeMillis() - currentStartMs);
     }
 }

@@ -114,12 +114,12 @@ public class Day10 extends AbstractDay {
     }
 
     @Override
-    public void part1Impl(boolean strict) {
-        check(solve(this::calcTrailHeadScore), 629, strict);
+    public boolean part1Impl(boolean strict) {
+        return check(solve(this::calcTrailHeadScore), 629, strict);
     }
 
     @Override
-    public void part2Impl(boolean strict) {
-        check(solve(this::calcTrailHeadRaiting), 1242, strict);
+    public boolean part2Impl(boolean strict) {
+        return check(solve(this::calcTrailHeadRaiting), 1242, strict);
     }
 }

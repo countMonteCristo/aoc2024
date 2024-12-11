@@ -1,12 +1,13 @@
 package aoc2024;
 
-import aoc2024.days.*;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import aoc2024.days.AbstractDay;
 
 
 class Runner {
@@ -25,7 +26,7 @@ class Runner {
         }
     }
 
-    static void runDay(DayConfig config) {
+    static boolean runDay(DayConfig config) {
         String className = String.format("aoc2024.days.Day%s", config.dayId);
 
         try {
@@ -35,15 +36,16 @@ class Runner {
             System.out.printf("Day %s%s:\n", config.dayId, label);
 
             day.prepare(config.inputFile);
-            day.part1(config.strict);
-            day.part2(config.strict);
+            boolean ok1 = day.part1(config.strict);
+            boolean ok2 = day.part2(config.strict);
 
             System.out.println();
+            return ok1 && ok2;
         } catch (IOException | ClassNotFoundException | IllegalAccessException | IllegalArgumentException |
                  InstantiationException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
             System.err.printf("[ERROR] Can not run day %s:\n", config.dayId);
             System.err.println(e);
-            System.exit(1);
+            return false;
         }
     }
 
@@ -53,9 +55,13 @@ class Runner {
             System.out.println(message);
         }
 
-        configs
+        long countFails = configs
             .stream()
-            .forEach(Runner::runDay);
+            .map(Runner::runDay)
+            .filter(ok -> !ok)
+            .count();
+        System.out.println("========================================");
+        System.out.printf("Failed days: %d\n", countFails);
         System.out.println("========================================");
     }
 

@@ -71,12 +71,12 @@ public class Day06 extends AbstractDay {
     }
 
     @Override
-    public void part1Impl(boolean strict) {
-        check(startPath(start, 0, new HashSet<>(), new Vector2(-1, -1), true), 5177, strict);
+    public boolean part1Impl(boolean strict) {
+        return check(startPath(start, 0, new HashSet<>(), new Vector2(-1, -1), true), 5177, strict);
     }
 
     @Override
-    public void part2Impl(boolean strict) {
+    public boolean part2Impl(boolean strict) {
         Set<Pair<Vector2, Vector2>> states = new HashSet<>();
         Set<Vector2> obstacles = new HashSet<>();
         Set<Vector2> path = new HashSet<>(List.of(start));
@@ -103,6 +103,6 @@ public class Day06 extends AbstractDay {
             }
         }
 
-        check(obstacles.size(), 1686, strict);
+        return check(obstacles.size(), 1686, strict);
     }
 }
