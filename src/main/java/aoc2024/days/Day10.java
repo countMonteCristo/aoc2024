@@ -34,8 +34,12 @@ public class Day10 extends AbstractDay {
         return (0 <= p.y()) && (p.y() < map.size()) && (0 <= p.x()) && (p.x() < map.get(0).size());
     }
 
+    int mapAt(List<List<Integer>> table, int row, int col) {
+        return table.get(row).get(col);
+    }
+
     int mapAt(List<List<Integer>> table, Vector2 p) {
-        return table.get(p.y()).get(p.x());
+        return mapAt(table, p.y(), p.x());
     }
 
     List<Vector2> getNeighbours(Vector2 point, int height) {
@@ -51,13 +55,12 @@ public class Day10 extends AbstractDay {
 
     int calcTrailHeadScore(int r, int c) {
         HashSet<Vector2> current = new HashSet<>(Arrays.asList(new Vector2(c, r)));
-        HashSet<Vector2> next = new HashSet<>();
-        for (int height = 1; (height < 10) && (!current.isEmpty()); height++) {
+        for (int height = 1; (height < 10) && !current.isEmpty(); height++) {
+            HashSet<Vector2> next = new HashSet<>();
             for (Vector2 p: current) {
                 next.addAll(getNeighbours(p, height));
             }
             current = next;
-            next = new HashSet<>();
         }
         return current.size();
     }
@@ -74,8 +77,8 @@ public class Day10 extends AbstractDay {
         dp.get(r).set(c, 1);
 
         HashSet<Vector2> current = new HashSet<>(Arrays.asList(new Vector2(c, r)));
-        HashSet<Vector2> next = new HashSet<>();
-        for (int height = 1; (height < 10) && (!current.isEmpty()); height++) {
+        for (int height = 1; (height < 10) && !current.isEmpty(); height++) {
+            HashSet<Vector2> next = new HashSet<>();
             for (Vector2 p: current) {
                 int q = mapAt(dp, p);
                 for (Vector2 n: getNeighbours(p, height)) {
@@ -85,14 +88,13 @@ public class Day10 extends AbstractDay {
             }
 
             current = next;
-            next = new HashSet<>();
         }
 
         int res = 0;
-        for (int i = 0; i < map.size(); i++) {
-            for (int j = 0; j < map.get(i).size(); j++) {
-                if (map.get(i).get(j) == 9) {
-                    res += dp.get(i).get(j);
+        for (int row = 0; row < map.size(); row++) {
+            for (int col = 0; col < map.get(row).size(); col++) {
+                if (mapAt(map, row, col) == 9) {
+                    res += mapAt(dp, row, col);
                 }
             }
         }
@@ -104,12 +106,11 @@ public class Day10 extends AbstractDay {
         int res = 0;
         for (int row = 0; row < map.size(); row++) {
             for (int col = 0; col < map.get(row).size(); col++) {
-                if (map.get(row).get(col) == 0) {
+                if (mapAt(map, row, col) == 0) {
                     res += scorer.calc(row, col);
                 }
             }
         }
-
         return res;
     }
 

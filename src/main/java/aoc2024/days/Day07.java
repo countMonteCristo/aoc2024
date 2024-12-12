@@ -66,7 +66,7 @@ public class Day07 extends AbstractDay {
     public boolean part1Impl(boolean strict) {
         long result = cases.stream()
             .filter(t -> checkSmart(t, t.args.size()-1, t.result))
-            .map(t -> t.result)
+            .map(TestCase::result)
             .reduce(0L, Long::sum);
         return check(result, 4998764814652L, strict);
     }
@@ -75,7 +75,7 @@ public class Day07 extends AbstractDay {
     public boolean part2Impl(boolean strict) {
         long result = cases.stream()
             .filter(t -> checkSmartEx(t, t.args.size()-1, t.result))
-            .map(t -> t.result)
+            .map(TestCase::result)
             .reduce(0L, Long::sum);
 
         return check(result, 37598910447546L, strict);

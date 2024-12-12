@@ -58,14 +58,12 @@ public class Day08 extends AbstractDay {
 
     HashSet<Vector2> getAntinodes(Vector2 a, Vector2 b) {
         HashSet<Vector2> result = new HashSet<>();
+        Vector2 r = b.minus(a);
 
-        int dRow = b.y() - a.y();
-        int dCol = b.x() - a.x();
-
-        Vector2 p1 = new Vector2(a.x() - dCol, a.y() - dRow);
+        Vector2 p1 = new Vector2(a.x() - r.x(), a.y() - r.y());
         if (mapContains(p1.x(), p1.y())) result.add(p1);
 
-        Vector2 p2 = new Vector2(b.x() + dCol, b.y() + dRow);
+        Vector2 p2 = new Vector2(b.x() + r.x(), b.y() + r.y());
         if (mapContains(p2.x(), p2.y())) result.add(p2);
 
         return result;
@@ -74,11 +72,10 @@ public class Day08 extends AbstractDay {
     HashSet<Vector2> getAllAntinodes(Vector2 a, Vector2 b) {
         HashSet<Vector2> result = new HashSet<>();
 
-        int dRow = b.y() - a.y();
-        int dCol = b.x() - a.x();
-        int d = gcd(Math.abs(dRow), Math.abs(dCol));
-        int dr = dRow / d;
-        int dc = dCol / d;
+        Vector2 r = b.minus(a);
+        int d = gcd(Math.abs(r.y()), Math.abs(r.x()));
+        int dr = r.y() / d;
+        int dc = r.x() / d;
 
         for (int n = -Integer.max(width, height); n <= Integer.max(width, height); n++) {
             Vector2 p = new Vector2(a.x() + n*dc, a.y() + n*dr);

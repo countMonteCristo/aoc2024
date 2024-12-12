@@ -34,7 +34,7 @@ public class Day06 extends AbstractDay {
     }
 
     boolean inside(Vector2 p) {
-        return ((p.x() >= 0) && (p.x() < map.get(0).length) && (p.y() >= 0) && (p.y() < map.size()));
+        return (p.x() >= 0) && (p.x() < map.get(0).length) && (p.y() >= 0) && (p.y() < map.size());
     }
 
     int rotateVelocity(int idx) {
@@ -47,7 +47,7 @@ public class Day06 extends AbstractDay {
 
     int startPath(Vector2 pos, int velIdx, Set<Pair<Vector2, Vector2>> states, Vector2 obs, boolean collect_path) {
         Set<Pair<Vector2, Vector2>> local_states = new HashSet<>();
-        Set<Vector2> points = collect_path ? (new HashSet<>()) : null;
+        Set<Vector2> points = collect_path ? new HashSet<>() : null;
         while (true) {
             Pair<Vector2, Vector2> p = new Pair<>(pos, vels[velIdx]);
             if (states.contains(p) || local_states.contains(p)) {

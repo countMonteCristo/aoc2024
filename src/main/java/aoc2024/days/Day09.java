@@ -38,19 +38,8 @@ public class Day09 extends AbstractDay {
         int pos = 0;
         for (int i = 0; i < diskMap.size(); i++) {
             int blockWidth = diskMap.get(i);
-            if (i % 2 == 0) {
-                if (blockWidth == 0) {
-                    System.out.println("empty file");
-                }
-                for (int j = pos; j < pos + blockWidth; j++) {
-                    mem.add(j, id);
-                }
-                id++;
-            } else {
-                for (int j = pos; j < pos + blockWidth; j++) {
-                    mem.add(j, -1);
-                }
-            }
+            int blockId = (i % 2 == 0) ? id++ : -1;
+            for (int j = pos; j < pos + blockWidth; j++) mem.add(j, blockId);
             pos += blockWidth;
         }
         return mem;
@@ -148,7 +137,6 @@ public class Day09 extends AbstractDay {
                     break;
                 }
             }
-
         }
 
         return check(checkSumFiles(files), 6467290479134L, strict);

@@ -12,12 +12,14 @@ import aoc2024.utils.Pair;
 public class Day11 extends AbstractDay {
 
     HashMap<Long, Long> stones;
+    HashMap<Integer, Long> powers;
 
     @Override
     public void prepare(String fn) throws IOException {
         stones = Stream.of(IO.readLines(fn).getFirst().split(" "))
             .map(Long::parseLong)
             .collect(Collectors.toMap(s -> s, s -> 1L, Long::sum, HashMap::new));
+        powers = new HashMap<>();
     }
 
     int countDigits(long stone) {
@@ -31,9 +33,15 @@ public class Day11 extends AbstractDay {
 
     Pair<Long, Long> splitStone(long stone, int numDigits) {
         long power = 1;
-        for (int i = 0; i < numDigits / 2; i++) {
-            power *= 10;
+        if (powers.containsKey(numDigits)) {
+            power = powers.get(numDigits);
+        } else {
+            for (int i = 0; i < numDigits / 2; i++) {
+                power *= 10;
+            }
+            powers.put(numDigits, power);
         }
+
         return new Pair<>(stone / power, stone % power);
     }
 
