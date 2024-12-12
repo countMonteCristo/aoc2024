@@ -61,43 +61,25 @@ public class Day12 extends AbstractDay {
     int countSides(HashSet<Vector2> points, char label, int minCol, int minRow, int maxCol, int maxRow) {
         int sides = 0;
 
-        // count vertical right-sides
-        for (int col = minCol; col <= maxCol; col++) {
-            boolean onSide = false;
-            for (int row = minRow; row <= maxRow; row++) {
-                var q = checkNewSide(points, label, new Vector2(col, row), new Vector2(col - 1, row), onSide);
-                sides += q.first();
-                onSide = q.second();
-            }
-        }
-
-        // count vertical left-sides
-        for (int col = minCol; col <= maxCol; col++) {
-            boolean onSide = false;
-            for (int row = minRow; row <= maxRow; row++) {
-                var q = checkNewSide(points, label, new Vector2(col, row), new Vector2(col + 1, row), onSide);
-                sides += q.first();
-                onSide = q.second();
-            }
-        }
-
-        // count horizontal top-sides
-        for (int row = minRow; row <= maxRow; row++) {
-            boolean onSide = false;
+        for (int dx = -1; dx < 2; dx += 2) {
+            // count vertical sides
             for (int col = minCol; col <= maxCol; col++) {
-                var q = checkNewSide(points, label, new Vector2(col, row), new Vector2(col, row + 1), onSide);
-                sides += q.first();
-                onSide = q.second();
+                boolean onSide = false;
+                for (int row = minRow; row <= maxRow; row++) {
+                    var q = checkNewSide(points, label, new Vector2(col, row), new Vector2(col + dx, row), onSide);
+                    sides += q.first();
+                    onSide = q.second();
+                }
             }
-        }
 
-        // count horizontal bottom-sides
-        for (int row = minRow; row <= maxRow; row++) {
-            boolean onSide = false;
-            for (int col = minCol; col <= maxCol; col++) {
-                var q = checkNewSide(points, label, new Vector2(col, row), new Vector2(col, row - 1), onSide);
-                sides += q.first();
-                onSide = q.second();
+            // count vertical sides
+            for (int row = minRow; row <= maxRow; row++) {
+                boolean onSide = false;
+                for (int col = minCol; col <= maxCol; col++) {
+                    var q = checkNewSide(points, label, new Vector2(col, row), new Vector2(col, row + dx), onSide);
+                    sides += q.first();
+                    onSide = q.second();
+                }
             }
         }
 
