@@ -27,7 +27,7 @@ Run all days (1-25):
 ./run.sh [all]
 ```
 
-Run single day with custom file as an input:
+Run single day with custom test file id (1, 2, 3, etc.) as an input:
 ```bash
-./run.sh 2 path/to/custom/file.txt
+./run.sh 2 test_file_id
 ```

@@ -17,12 +17,12 @@ class Runner {
         public String inputFile;
         public boolean strict;
 
-        DayConfig(Integer id, String inputFn) {
+        DayConfig(Integer id, String inputFnId) {
             dayId = String.format("%02d", id);
-            strict = inputFn.equals("");
+            strict = inputFnId.equals("");
             inputFile = strict ?
                         String.format("src/main/resources/day%s.txt", dayId) :
-                        inputFn;
+                        String.format("src/test/resources/day%s_test%s.txt", dayId, inputFnId);
         }
     }
 
@@ -95,9 +95,9 @@ class Runner {
             runRange(1, 25);
         } else {
             Integer id = Integer.parseInt(dayId);
-            String inputFn = (args.length >= 2) ? args[1] : "";
+            String inputFnId = (args.length >= 2) ? args[1] : "";
 
-            runDays(Arrays.asList(new DayConfig(id, inputFn)), "");
+            runDays(Arrays.asList(new DayConfig(id, inputFnId)), "");
         }
     }
 }
