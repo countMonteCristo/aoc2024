@@ -7,46 +7,42 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import aoc2024.utils.IO;
-import aoc2024.utils.Pair;
+import aoc2024.utils.Vec2l;
 
 
 public class Day13 extends AbstractDay {
 
-    record Machine(long Ax, long Ay, long Bx, long By, long Px, long Py) {
-        static final long costA = 3L;
-        static final long costB = 1L;
+    record Machine(Vec2l A, Vec2l B, Vec2l P) {
+        static final Vec2l cost = new Vec2l(3L, 1L);
 
         Long calcTokens(long diff, long max) {
-            long px = Px + diff;
-            long py = Py + diff;
-
-            long d = Ax * By - Ay * Bx;
+            long d = A.cross(B);
             if (d == 0L) return 0L;
             long sd = Long.signum(d);
 
-            long nAd = By * px - Bx * py;
-            long nBd = Ax * py - Ay * px;
-            if ((Long.signum(nAd) * sd < 0) || (Long.signum(nAd) * sd < 0) || (nAd % d != 0) || (nBd % d != 0)) {
+            Vec2l p = new Vec2l(P.x() + diff, P.y() + diff);
+            long nAd = p.cross(B);
+            long nBd = A.cross(p);
+            if ((Long.signum(nAd) * sd < 0L) || (Long.signum(nAd) * sd < 0L) || (nAd % d != 0L) || (nBd % d != 0L)) {
                 return 0L;
             }
 
-            long nA = nAd / d;
-            long nB = nBd / d;
-            if ((nA > max) || (nB > max)) return 0L;
+            Vec2l n = new Vec2l(nAd / d, nBd / d);
+            if ((n.x() > max) || (n.y() > max)) return 0L;
 
-            return nA * costA + nB * costB;
+            return n.dot(cost);
         }
     }
 
     List<Machine> machines;
     static final Pattern pat = Pattern.compile("^\\D+X.(?<x>\\d+), Y.(?<y>\\d+)$");
 
-    static Pair<Long, Long> parseLine(String line) {
+    static Vec2l parseLine(String line) {
         Matcher matcher = pat.matcher(line);
         matcher.find();
         long x = Long.parseLong(matcher.group("x"));
         long y = Long.parseLong(matcher.group("y"));
-        return new Pair<>(x, y);
+        return new Vec2l(x, y);
     }
 
     @Override
@@ -64,10 +60,7 @@ public class Day13 extends AbstractDay {
                 lineB = line;
                 continue;
             } else if (line.startsWith("Prize")) {
-                Pair<Long, Long> a = parseLine(lineA);
-                Pair<Long, Long> b = parseLine(lineB);
-                Pair<Long, Long> p = parseLine(line);
-                machines.add(new Machine(a.first(), a.second(), b.first(), b.second(), p.first(), p.second()));
+                machines.add(new Machine(parseLine(lineA), parseLine(lineB), parseLine(line)));
                 continue;
             }
         }
