@@ -82,4 +82,16 @@ public class Array2d<T> {
     public final Stream<List<T>> stream() {
         return data_.stream();
     }
+
+    public final Stream<Pair<Vector2,T>> elementStream() {
+        Vector2 start = new Vector2(0,0);
+        var seed = new Pair<>(start, at(start));
+        return Stream.iterate(seed, i -> {
+            int row = i.first().y();
+            int col = i.first().x();
+            int index = row * width() + col + 1;
+            Vector2 next = new Vector2(index % width(), index / width());
+            return new Pair<>(next, at(next));
+        }).limit(width() * height());
+    }
 }

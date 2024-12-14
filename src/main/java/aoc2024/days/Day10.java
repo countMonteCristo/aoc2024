@@ -13,7 +13,7 @@ import aoc2024.utils.Vector2;
 public class Day10 extends AbstractDay {
 
     interface Scorer {
-        int calc(int r, int c);
+        int calc(Vector2 p);
     }
 
     Array2d<Integer> map;
@@ -26,6 +26,7 @@ public class Day10 extends AbstractDay {
         map = Array2d.parseIntTable(fn, "");
     }
 
+    // Tried to use streams, but they seem to work longer than plain for-loop
     List<Vector2> getNeighbours(Vector2 point, int height) {
         List<Vector2> nbrs = new ArrayList<>(4);
         for (Vector2 d: dd) {
@@ -37,56 +38,45 @@ public class Day10 extends AbstractDay {
         return nbrs;
     }
 
-    int calcTrailHeadScore(int r, int c) {
-        HashSet<Vector2> current = new HashSet<>(Arrays.asList(new Vector2(c, r)));
+    int calcTrailHeadScore(Vector2 p) {
+        HashSet<Vector2> current = new HashSet<>(Arrays.asList(p));
         for (int height = 1; (height < 10) && !current.isEmpty(); height++) {
             HashSet<Vector2> next = new HashSet<>();
-            for (Vector2 p: current) {
-                next.addAll(getNeighbours(p, height));
+            for (Vector2 q: current) {
+                next.addAll(getNeighbours(q, height));
             }
             current = next;
         }
         return current.size();
     }
 
-    int calcTrailHeadRaiting(int r, int c) {
+    int calcTrailHeadRaiting(Vector2 p) {
         Array2d<Integer> dp = Array2d.getTable(map.width(), map.height(), 0);
-        dp.set(r, c, 1);
+        dp.set(p, 1);
 
-        HashSet<Vector2> current = new HashSet<>(Arrays.asList(new Vector2(c, r)));
+        HashSet<Vector2> current = new HashSet<>(Arrays.asList(p));
         for (int height = 1; (height < 10) && !current.isEmpty(); height++) {
             HashSet<Vector2> next = new HashSet<>();
-            for (Vector2 p: current) {
-                for (Vector2 n: getNeighbours(p, height)) {
-                    dp.set(n,  dp.at(n) + dp.at(p));
+            for (Vector2 q: current) {
+                for (Vector2 n: getNeighbours(q, height)) {
+                    dp.set(n,  dp.at(n) + dp.at(q));
                     next.add(n);
                 }
             }
             current = next;
         }
 
-        int res = 0;
-        for (int row = 0; row < map.height(); row++) {
-            for (int col = 0; col < map.width(); col++) {
-                if (map.at(row, col) == 9) {
-                    res += dp.at(row, col);
-                }
-            }
-        }
-
-        return res;
+        return map.elementStream()
+            .filter(i -> i.second() == 9)
+            .map(i -> dp.at(i.first()))
+            .reduce(0, Integer::sum);
     }
 
     int solve(Scorer scorer) {
-        int res = 0;
-        for (int row = 0; row < map.height(); row++) {
-            for (int col = 0; col < map.width(); col++) {
-                if (map.at(row, col) == 0) {
-                    res += scorer.calc(row, col);
-                }
-            }
-        }
-        return res;
+        return map.elementStream()
+            .filter(i -> i.second() == 0)
+            .map(i -> scorer.calc(i.first()))
+            .reduce(0, Integer::sum);
     }
 
     @Override
