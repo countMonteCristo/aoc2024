@@ -1,40 +1,32 @@
 package aoc2024.days;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import aoc2024.utils.Array2d;
 import aoc2024.utils.IO;
 import aoc2024.utils.Pair;
 
 
 public class Day05 extends AbstractDay {
 
-    List<List<Integer>> updates;
-    HashSet<Pair<Integer,Integer>> rules;
+    Array2d<Integer> updates;
+    Set<Pair<Integer,Integer>> rules;
 
     @Override
     public void prepare(String fn) throws IOException {
-        rules = new HashSet<>();
-        updates = new ArrayList<>();
+        String[] inputParts = IO.readAll(fn).split("\n\n");
 
-        boolean parse_rules = true;
-        for (String line : IO.readLines(fn)) {
-            if (line.isEmpty()) {
-                parse_rules = false;
-                continue;
-            }
-            if (parse_rules) {
+        rules = Stream.of(inputParts[0].split("\n"))
+            .map(line -> {
                 String[] parts = line.split("\\|");
-                rules.add(new Pair<>(Integer.parseInt(parts[0]), Integer.parseInt(parts[1])));
-            } else {
-                updates.add(Stream.of(line.split(",")).map(Integer::parseInt).collect(Collectors.toList()));
-            }
-        }
+                return new Pair<Integer,Integer>(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));})
+            .collect(Collectors.toSet());
+        updates = new Array2d<>(Stream.of(inputParts[1].split("\n")), ",", Integer::parseInt);
     }
 
     Integer processUpdate(List<Integer> update) {

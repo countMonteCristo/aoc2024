@@ -53,9 +53,8 @@ public class Day13 extends AbstractDay {
     public void prepare(String fn) throws IOException {
         machines = new ArrayList<>();
 
-        List<String> lines = IO.readLines(fn);
         String lineA = "", lineB = "";
-        for (String line: lines) {
+        for (String line: IO.readLines(fn)) {
             if (line.isEmpty()) {
                 continue;
             } else if (line.startsWith("Button A")) {

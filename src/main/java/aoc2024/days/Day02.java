@@ -4,15 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import aoc2024.utils.IO;
+import aoc2024.utils.Array2d;
 
 
 public class Day02 extends AbstractDay {
 
-    List<List<Integer>> streams;
+    Array2d<Integer> streams;
 
     public static boolean isSafe(List<Integer> stream) {
         Integer first = stream.getFirst();
@@ -38,18 +36,13 @@ public class Day02 extends AbstractDay {
         return false;
     }
 
-    public static long processStreams(List<List<Integer>> streams, Predicate<? super List<Integer>> p) {
+    public static long processStreams(Array2d<Integer> streams, Predicate<? super List<Integer>> p) {
         return streams.stream().filter(p).count();
     }
 
     @Override
     public void prepare(String fn) throws IOException {
-        streams = IO
-            .readLines(fn).stream()
-            .map(line -> Stream.of(line.split(" "))
-                .map(Integer::parseInt)
-                .collect(Collectors.toList()))
-            .collect(Collectors.toList());
+        streams = Array2d.parseIntTable(fn, " ");
     }
 
     @Override

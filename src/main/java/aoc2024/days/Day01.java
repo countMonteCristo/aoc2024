@@ -3,26 +3,18 @@ package aoc2024.days;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
-import aoc2024.utils.IO;
+import aoc2024.utils.Array2d;
 
 
 public class Day01 extends AbstractDay {
 
-    List<List<Integer>> list;
+    Array2d<Integer> list;
 
     @Override
     public void prepare(String fn) throws IOException {
-        list = IO
-            .readLines(fn).stream()
-            .map(line -> Stream.of(line.split("   "))
-                .map(Integer::parseInt)
-                .collect(Collectors.toList()))
-            .collect(Collectors.toList());
+        list = Array2d.parseIntTable(fn, "   ");
     }
 
     @Override
@@ -30,7 +22,7 @@ public class Day01 extends AbstractDay {
         ArrayList<Integer> first = new ArrayList<>();
         ArrayList<Integer> second = new ArrayList<>();
 
-        list.forEach(item -> {
+        list.forEachRow(item -> {
             first.add(item.get(0));
             second.add(item.get(1));});
 
@@ -38,7 +30,7 @@ public class Day01 extends AbstractDay {
         second.sort(null);
 
         int res = IntStream
-            .range(0, list.size())
+            .range(0, list.height())
             .map(i -> Math.abs(first.get(i) - second.get(i)))
             .sum();
 
@@ -50,7 +42,7 @@ public class Day01 extends AbstractDay {
         HashMap<Integer,Integer> first = new HashMap<>();
         HashMap<Integer,Integer> second = new HashMap<>();
 
-        list.forEach(item -> {
+        list.forEachRow(item -> {
             first.merge(item.get(0), 1, Integer::sum);
             second.merge(item.get(1), 1, Integer::sum);
         });

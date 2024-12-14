@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import aoc2024.utils.IO;
+import aoc2024.utils.Array2d;
 import aoc2024.utils.Pair;
 import aoc2024.utils.Vector2;
 
@@ -15,7 +15,7 @@ public class Day12 extends AbstractDay {
 
     record Region(HashSet<Vector2> points, char label, int perimeter, int sides) {}
 
-    List<String> lines;
+    Array2d<Character> garden;
     List<Region> regions;
 
     final List<Vector2> dd = Arrays.asList(
@@ -24,11 +24,11 @@ public class Day12 extends AbstractDay {
 
     @Override
     public void prepare(String fn) throws IOException {
-        lines = IO.readLines(fn);
+        garden = Array2d.parseCharTable(fn);
         regions = new ArrayList<>();
 
-        for (int row = 0; row < lines.size(); row++) {
-            for (int col = 0; col < lines.get(row).length(); col++) {
+        for (int row = 0; row < garden.height(); row++) {
+            for (int col = 0; col < garden.width(); col++) {
                 Vector2 p = new Vector2(col, row);
                 if (regions.stream().anyMatch(r -> r.points.contains(p))) {
                     continue;
@@ -38,20 +38,12 @@ public class Day12 extends AbstractDay {
         }
     }
 
-    boolean contains(Vector2 p) {
-        return (0 <= p.y()) && (p.y() < lines.size()) && (0 <= p.x()) && (p.x() < lines.get(0).length());
-    }
-
-    char at(Vector2 p) {
-        return lines.get(p.y()).charAt(p.x());
-    }
-
     Pair<Integer, Boolean> checkNewSide(HashSet<Vector2> points, char label, Vector2 current, Vector2 next, boolean onSide) {
         int sides = 0;
         if (!points.contains(current)) {
             onSide = false;
         } else {
-            boolean isSidePoint = (at(current) == label) && (!contains(next) || (at(next) != label));
+            boolean isSidePoint = (garden.at(current) == label) && (!garden.contains(next) || (garden.at(next) != label));
             if (!onSide && isSidePoint) sides++;
             onSide = (!onSide && isSidePoint) ? true : (onSide && !isSidePoint) ? false : onSide;
         }
@@ -88,7 +80,7 @@ public class Day12 extends AbstractDay {
 
     Region buildRegion(Vector2 p) {
         HashSet<Vector2> points = new HashSet<>();
-        char label = at(p);
+        char label = garden.at(p);
 
         HashSet<Vector2> edge = new HashSet<>(List.of(p));
         while (!edge.isEmpty()) {
@@ -96,7 +88,7 @@ public class Day12 extends AbstractDay {
             for (Vector2 e: edge) {
                 for (Vector2 d: dd) {
                     Vector2 n = e.plus(d);
-                    if (contains(n) && (at(n) == label) && !points.contains(n)) {
+                    if (garden.contains(n) && (garden.at(n) == label) && !points.contains(n)) {
                         next.add(n);
                     }
                 }
