@@ -119,18 +119,18 @@ public class Day15 extends AbstractDay {
         int boxId = 0;
         for (int row = 0; row < map.length; row++) {
             for (int col = 0; col < map[row].length(); col++) {
-                if (map[row].charAt(col) == '.') continue;
-
                 for (Warehouse w: wh.values()) {
-                    if (map[row].charAt(col) == '#') {
+                    switch (map[row].charAt(col)) {
+                    case '#':
                         w.addWall(row, col);
-                    }
-                    if (map[row].charAt(col) == 'O') {
+                        break;
+                    case 'O':
                         w.addBox(row, col, boxId);
                         boxId++;
-                    }
-                    if (map[row].charAt(col) == '@') {
+                        break;
+                    case '@':
                         w.addBot(row, col);
+                        break;
                     }
                 }
             }

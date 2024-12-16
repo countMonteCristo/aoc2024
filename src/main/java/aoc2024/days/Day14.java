@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import aoc2024.utils.Array2d;
 import aoc2024.utils.IO;
 import aoc2024.utils.Vector2;
 
@@ -80,38 +79,41 @@ public class Day14 extends AbstractDay {
         }
     }
 
+    long calc(List<Robot> robots, Vector2 halfSize) {
+        Long[][] quads = {{0L, 0L}, {0L, 0L}};
+        for (Robot r: robots) {
+            Vector2 p = r.pos();
+            if (p.x() == halfSize.x() || p.y() == halfSize.y()) continue;
+            int qr = (p.y() < halfSize.y()) ? 0 : 1;
+            int qc = (p.x() < halfSize.x()) ? 0 : 1;
+            quads[qr][qc]++;
+        }
+        return quads[0][0] * quads[0][1] * quads[1][0] * quads[1][1];
+    }
+
     @Override
     public boolean part1Impl(boolean strict) {
         Vector2 size = strict ? bigSize : smallSize;
         run(robots1, 100, size);
-
-        Array2d<Long> quads = Array2d.getTable(2, 2, 0L);
-        for (int r = 0; r < size.y(); r++) {
-            if (r == size.y() / 2) continue;
-            int qr = (r < size.y() / 2) ? 0 : 1;
-            for (int c = 0; c < size.x(); c++) {
-                if (c == size.x() / 2) continue;
-                int qc = (c < size.x() / 2) ? 0 : 1;
-                Vector2 p = new Vector2(c, r);
-                long n = robots1.stream().filter(bot -> bot.pos().equals(p)).count();
-                quads.set(qr, qc, quads.at(qr, qc) + n);
-            }
-        }
-        long res = quads.at(0,0) * quads.at(0,1) * quads.at(1,0) * quads.at(1,1);
-
-        return check(res, 230686500L, strict);
+        return check(calc(robots1, size.div(2)), 230686500L, strict);
     }
 
     @Override
     public boolean part2Impl(boolean strict) {
         Vector2 size = strict ? bigSize : smallSize;
-        int res = strict ? 7672 : 100;
+        Vector2 halfSize = size.div(2);
 
-        for (int i = 0; i < res; i++) {
+        int minIt = -1;
+        long minScore = Long.MAX_VALUE;
+        for (int i = 0; i < size.x() * size.y(); i++) {
             robots2.forEach(r -> r.step(size));
-        }
-        display(robots2, size);
 
-        return check(res, 7672, strict);
+            long score = calc(robots2, halfSize);
+            if (score < minScore) {
+                minScore = score;
+                minIt = i + 1;
+            }
+        }
+        return check(minIt, 7672, strict);
     }
 }
