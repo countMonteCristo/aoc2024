@@ -12,14 +12,12 @@ import aoc2024.utils.Vector2;
 
 public class Day10 extends AbstractDay {
 
-    interface Scorer {
+    private interface Scorer {
         int calc(Vector2 p);
     }
 
-    Array2d<Integer> map;
-    final List<Vector2> dd = Arrays.asList(
-        new Vector2(-1,  0), new Vector2( 0, -1),
-        new Vector2( 1,  0), new Vector2( 0,  1));
+    private Array2d<Integer> map;
+    private final List<Vector2> dd = Arrays.asList(Vector2.LEFT, Vector2.UP, Vector2.RIGHT, Vector2.DOWN);
 
     @Override
     public void prepare(String fn) throws IOException {
@@ -27,7 +25,7 @@ public class Day10 extends AbstractDay {
     }
 
     // Tried to use streams, but they seem to work longer than plain for-loop
-    List<Vector2> getNeighbours(Vector2 point, int height) {
+    private List<Vector2> getNeighbours(Vector2 point, int height) {
         List<Vector2> nbrs = new ArrayList<>(4);
         for (Vector2 d: dd) {
             Vector2 p = point.plus(d);
@@ -38,7 +36,7 @@ public class Day10 extends AbstractDay {
         return nbrs;
     }
 
-    int calcTrailHeadScore(Vector2 p) {
+    private int calcTrailHeadScore(Vector2 p) {
         HashSet<Vector2> current = new HashSet<>(Arrays.asList(p));
         for (int height = 1; (height < 10) && !current.isEmpty(); height++) {
             HashSet<Vector2> next = new HashSet<>();
@@ -50,7 +48,7 @@ public class Day10 extends AbstractDay {
         return current.size();
     }
 
-    int calcTrailHeadRaiting(Vector2 p) {
+    private int calcTrailHeadRaiting(Vector2 p) {
         Array2d<Integer> dp = Array2d.getTable(map.width(), map.height(), 0);
         dp.set(p, 1);
 
@@ -72,7 +70,7 @@ public class Day10 extends AbstractDay {
             .reduce(0, Integer::sum);
     }
 
-    int solve(Scorer scorer) {
+    private int solve(Scorer scorer) {
         return map.elementStream()
             .filter(i -> i.second() == 0)
             .map(i -> scorer.calc(i.first()))

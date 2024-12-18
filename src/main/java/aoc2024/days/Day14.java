@@ -1,7 +1,6 @@
 package aoc2024.days;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,10 +10,10 @@ import aoc2024.utils.Vector2;
 
 public class Day14 extends AbstractDay {
 
-    final Vector2 smallSize = new Vector2(11, 7);
-    final Vector2 bigSize = new Vector2(101, 103);
+    private final Vector2 smallSize = new Vector2(11, 7);
+    private final Vector2 bigSize = new Vector2(101, 103);
 
-    class Robot {
+    private class Robot {
         Vector2 p_;
         Vector2 v_;
 
@@ -38,12 +37,9 @@ public class Day14 extends AbstractDay {
         Vector2 pos() {
             return p_;
         }
-        Vector2 vel() {
-            return v_;
-        }
     }
-    List<Robot> robots1;
-    List<Robot> robots2;
+    private List<Robot> robots1;
+    private List<Robot> robots2;
 
     @Override
     public void prepare(String fn) throws IOException {
@@ -61,25 +57,7 @@ public class Day14 extends AbstractDay {
         }
     }
 
-    void display(List<Robot> robots, Vector2 size) {
-        HashMap<Vector2, Integer> botsCount = new HashMap<>();
-        robots.forEach(bot -> botsCount.merge(bot.pos(), 1, Integer::sum));
-
-        int rStart = (size.y() > 100) ? 24 : 0;
-        int cStart = (size.x() > 100) ? 38 : 0;
-        int h = (size.y() > 100) ? 33 : size.y();
-        int w = (size.x() > 100) ? 31 : size.y();
-
-        for (int r = rStart; r < rStart + h; r++) {
-            for (int c = cStart; c < cStart + w; c++) {
-                int n = botsCount.getOrDefault(new Vector2(c, r), 0);
-                System.out.print((n == 0) ? " " : Integer.toString(n));
-            }
-            System.out.println();
-        }
-    }
-
-    long calc(List<Robot> robots, Vector2 halfSize) {
+    private long calc(List<Robot> robots, Vector2 halfSize) {
         Long[][] quads = {{0L, 0L}, {0L, 0L}};
         for (Robot r: robots) {
             Vector2 p = r.pos();

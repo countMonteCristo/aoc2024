@@ -4,7 +4,7 @@ import java.io.IOException;
 
 
 public class DayXX extends AbstractDay {
-    // List<String> lines;
+    // private List<String> lines;
 
     @Override
     public void prepare(String fn) throws IOException {

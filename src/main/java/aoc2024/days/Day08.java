@@ -12,13 +12,13 @@ import aoc2024.utils.Vector2;
 
 public class Day08 extends AbstractDay {
 
-    interface AntinodesGetter {
+    private interface AntinodesGetter {
         HashSet<Vector2> collect(Vector2 a, Vector2 b);
     }
 
-    HashMap<Character,List<Vector2>> antennas;
-    int width = 0;
-    int height = 0;
+    private HashMap<Character,List<Vector2>> antennas;
+    private int width = 0;
+    private int height = 0;
 
     @Override
     public void prepare(String fn) throws IOException {
@@ -41,7 +41,7 @@ public class Day08 extends AbstractDay {
         }
     }
 
-    int gcd(int x, int y) {
+    private int gcd(int x, int y) {
         if (x < y) {
             int t = x;
             x = y;
@@ -52,11 +52,11 @@ public class Day08 extends AbstractDay {
         return gcd(y, x % y);
     }
 
-    boolean mapContains(int x, int y) {
+    private boolean mapContains(int x, int y) {
         return (0 <= y) && (y < height) && (0 <= x) && (x < width);
     }
 
-    HashSet<Vector2> getAntinodes(Vector2 a, Vector2 b) {
+    private HashSet<Vector2> getAntinodes(Vector2 a, Vector2 b) {
         HashSet<Vector2> result = new HashSet<>();
         Vector2 r = b.minus(a);
 
@@ -69,7 +69,7 @@ public class Day08 extends AbstractDay {
         return result;
     }
 
-    HashSet<Vector2> getAllAntinodes(Vector2 a, Vector2 b) {
+    private HashSet<Vector2> getAllAntinodes(Vector2 a, Vector2 b) {
         HashSet<Vector2> result = new HashSet<>();
 
         Vector2 r = b.minus(a);
@@ -87,7 +87,7 @@ public class Day08 extends AbstractDay {
         return result;
     }
 
-    int solve(AntinodesGetter getter) {
+    private int solve(AntinodesGetter getter) {
         HashSet<Vector2> res = new HashSet<>();
 
         antennas.values().stream()

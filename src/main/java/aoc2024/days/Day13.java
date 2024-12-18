@@ -12,7 +12,7 @@ import aoc2024.utils.Vec2l;
 
 public class Day13 extends AbstractDay {
 
-    record Machine(Vec2l A, Vec2l B, Vec2l P) {
+    private record Machine(Vec2l A, Vec2l B, Vec2l P) {
         static final Vec2l cost = new Vec2l(3L, 1L);
 
         Long calcTokens(long diff, long max) {
@@ -34,7 +34,7 @@ public class Day13 extends AbstractDay {
         }
     }
 
-    List<Machine> machines;
+    private List<Machine> machines;
     static final Pattern pat = Pattern.compile("^\\D+X.(?<x>\\d+), Y.(?<y>\\d+)$");
 
     static Vec2l parseLine(String line) {
@@ -66,7 +66,7 @@ public class Day13 extends AbstractDay {
         }
     }
 
-    long solve(long diff, long max) {
+    private long solve(long diff, long max) {
         return machines.stream().map(m -> m.calcTokens(diff, max)).reduce(0L, Long::sum);
     }
 

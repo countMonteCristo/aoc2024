@@ -16,7 +16,7 @@ import aoc2024.utils.Vector2;
 
 public class Day15 extends AbstractDay {
 
-    class Box {
+    private class Box {
         public int id;
         ArrayList<Vector2> parts;
 
@@ -33,7 +33,7 @@ public class Day15 extends AbstractDay {
         }
     }
 
-    class Warehouse {
+    private class Warehouse {
         HashMap<Vector2, Integer> boxes;
         HashMap<Integer, Box> storage;
         HashSet<Vector2> walls;
@@ -90,12 +90,10 @@ public class Day15 extends AbstractDay {
         }
     }
 
-    final static List<Vector2> dd = Arrays.asList(
-        new Vector2(-1,  0), new Vector2( 0, -1),
-        new Vector2( 1,  0), new Vector2( 0,  1));
+    final static List<Vector2> dd = Arrays.asList(Vector2.LEFT, Vector2.UP, Vector2.RIGHT, Vector2.DOWN);
 
-    List<Vector2> moves;
-    HashMap<Integer, Warehouse> wh;
+    private List<Vector2> moves;
+    private HashMap<Integer, Warehouse> wh;
 
     static Vector2 moveCharToVector2(String c) {
         if (c.equals("v")) return dd.get(3);
@@ -141,7 +139,7 @@ public class Day15 extends AbstractDay {
             .collect(Collectors.toList());
     }
 
-    HashSet<Integer> getMovingBoxIds(Vector2 pos, Vector2 d, Warehouse wh) {
+    private HashSet<Integer> getMovingBoxIds(Vector2 pos, Vector2 d, Warehouse wh) {
         if (!wh.hasBoxAt(pos)) return null;
 
         HashSet<Integer> ids = new HashSet<>();
@@ -169,7 +167,7 @@ public class Day15 extends AbstractDay {
         return ids;
     }
 
-    void moveBot(Vector2 d, Warehouse wh) {
+    private void moveBot(Vector2 d, Warehouse wh) {
         Vector2 first = wh.bot.plus(d);
         if (!wh.hasBoxAt(first) && !wh.hasWallAt(first)) {
             wh.bot = first;
@@ -188,21 +186,7 @@ public class Day15 extends AbstractDay {
         wh.bot = first;
     }
 
-    void show(Warehouse wh, Vector2 mapSize) {
-        for (int row = 0; row < mapSize.y(); row++) {
-            for (int col = 0; col < mapSize.x(); col++) {
-                Vector2 p = new Vector2(col, row);
-                String c = ".";
-                if (wh.hasWallAt(p)) c = "#";
-                if (wh.hasBoxAt(p)) c = "O";
-                if (wh.bot.equals(p)) c = "@";
-                System.out.print(c);
-            }
-            System.out.println();
-        }
-    }
-
-    int solve(int whId) {
+    private int solve(int whId) {
         moves.forEach(d -> moveBot(d, wh.get(whId)));
         return wh.get(whId).getGPS();
     }

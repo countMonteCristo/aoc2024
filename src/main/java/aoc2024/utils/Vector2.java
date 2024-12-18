@@ -7,6 +7,11 @@ public record Vector2 (int x, int y) {
     public static Vector2 LEFT = new Vector2(-1, 0);
     public static Vector2 RIGHT = new Vector2(1, 0);
 
+    public static Vector2 TOP_LEFT = new Vector2(-1, -1);
+    public static Vector2 TOP_RIGHT = new Vector2(1, -1);
+    public static Vector2 BOTTOM_LEFT = new Vector2(-1, 1);
+    public static Vector2 BOTTOM_RIGHT = new Vector2(1, 1);
+
     public Vector2 copy() {
         return new Vector2(x, y);
     }

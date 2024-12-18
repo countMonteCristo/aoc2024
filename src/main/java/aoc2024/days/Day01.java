@@ -10,7 +10,7 @@ import aoc2024.utils.Array2d;
 
 public class Day01 extends AbstractDay {
 
-    Array2d<Integer> list;
+    private Array2d<Integer> list;
 
     @Override
     public void prepare(String fn) throws IOException {

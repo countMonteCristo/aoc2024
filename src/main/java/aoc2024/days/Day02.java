@@ -10,7 +10,7 @@ import aoc2024.utils.Array2d;
 
 public class Day02 extends AbstractDay {
 
-    Array2d<Integer> streams;
+    private Array2d<Integer> streams;
 
     public static boolean isSafe(List<Integer> stream) {
         Integer first = stream.getFirst();

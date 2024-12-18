@@ -13,14 +13,12 @@ import aoc2024.utils.Vector2;
 
 public class Day12 extends AbstractDay {
 
-    record Region(HashSet<Vector2> points, char label, int perimeter, int sides) {}
+    private record Region(HashSet<Vector2> points, char label, int perimeter, int sides) {}
 
-    Array2d<Character> garden;
-    List<Region> regions;
+    private Array2d<Character> garden;
+    private List<Region> regions;
 
-    final List<Vector2> dd = Arrays.asList(
-        new Vector2(-1,  0), new Vector2( 0, -1),
-        new Vector2( 1,  0), new Vector2( 0,  1));
+    private final List<Vector2> dd = Arrays.asList(Vector2.LEFT, Vector2.UP, Vector2.RIGHT, Vector2.DOWN);
 
     @Override
     public void prepare(String fn) throws IOException {
@@ -38,7 +36,7 @@ public class Day12 extends AbstractDay {
         }
     }
 
-    Pair<Integer, Boolean> checkNewSide(HashSet<Vector2> points, char label, Vector2 current, Vector2 next, boolean onSide) {
+    private Pair<Integer, Boolean> checkNewSide(HashSet<Vector2> points, char label, Vector2 current, Vector2 next, boolean onSide) {
         int sides = 0;
         if (!points.contains(current)) {
             onSide = false;
@@ -50,7 +48,7 @@ public class Day12 extends AbstractDay {
         return new Pair<>(sides, onSide);
     }
 
-    int countSides(HashSet<Vector2> points, char label, int minCol, int minRow, int maxCol, int maxRow) {
+    private int countSides(HashSet<Vector2> points, char label, int minCol, int minRow, int maxCol, int maxRow) {
         int sides = 0;
 
         for (int dx = -1; dx < 2; dx += 2) {
@@ -78,7 +76,7 @@ public class Day12 extends AbstractDay {
         return sides;
     }
 
-    Region buildRegion(Vector2 p) {
+    private Region buildRegion(Vector2 p) {
         HashSet<Vector2> points = new HashSet<>();
         char label = garden.at(p);
 

@@ -12,16 +12,16 @@ import aoc2024.utils.Vector2;
 
 public class Day16 extends AbstractDay {
 
-    record Vertex(Vector2 pos, int dir) {}
-    record Item(ArrayList<Vertex> path, int score) {}
+    private record Vertex(Vector2 pos, int dir) {}
+    private record Item(ArrayList<Vertex> path, int score) {}
 
     static final Vector2[] dirs = {Vector2.RIGHT, Vector2.UP, Vector2.LEFT, Vector2.DOWN};
     static final int STEP_COST = 1;
     static final int TURN_COST = 1001;
 
-    Array2d<Character> maze;
-    Vector2 start;
-    Vector2 finish;
+    private Array2d<Character> maze;
+    private Vector2 start;
+    private Vector2 finish;
 
     @Override
     public void prepare(String fn) throws IOException {
@@ -33,7 +33,7 @@ public class Day16 extends AbstractDay {
             });
     }
 
-    Item findShortestPath(Vector2 begin, int dir, Vector2 end, HashMap<Vertex, Item> vCache) {
+    private Item findShortestPath(Vector2 begin, int dir, Vector2 end, HashMap<Vertex, Item> vCache) {
         Item minItem = null;
         PriorityQueue<Item> q = new PriorityQueue<>((p1, p2) -> Integer.compare(p1.score, p2.score));
 

@@ -12,7 +12,7 @@ import aoc2024.utils.IO;
 
 public class Day09 extends AbstractDay {
 
-    class Block {
+    private class Block {
         public int start;
         public int width;
 
@@ -22,7 +22,7 @@ public class Day09 extends AbstractDay {
         }
     }
 
-    List<Integer> diskMap;
+    private List<Integer> diskMap;
 
     @Override
     public void prepare(String fn) throws IOException {
@@ -31,7 +31,7 @@ public class Day09 extends AbstractDay {
             .collect(Collectors.toList());
     }
 
-    List<Integer> fillMemory() {
+    private List<Integer> fillMemory() {
         int size = diskMap.stream().reduce(0, Integer::sum);
         List<Integer> mem = new ArrayList<>(size);
         int id = 0;
@@ -45,7 +45,7 @@ public class Day09 extends AbstractDay {
         return mem;
     }
 
-    List<Integer> buildFilePositions() {
+    private List<Integer> buildFilePositions() {
         List<Integer> filePositions = new ArrayList<>();
 
         int pos = 0;
@@ -59,7 +59,7 @@ public class Day09 extends AbstractDay {
         return filePositions;
     }
 
-    LinkedList<Block> buildEmptyBlocks() {
+    private LinkedList<Block> buildEmptyBlocks() {
         LinkedList<Block> blocks = new LinkedList<>();
 
         int pos = 0;
@@ -73,7 +73,7 @@ public class Day09 extends AbstractDay {
         return blocks;
     }
 
-    void defrag(List<Integer> memory) {
+    private void defrag(List<Integer> memory) {
         int i = 0;
         int j = memory.size() - 1;
         while (i < j) {
@@ -94,7 +94,7 @@ public class Day09 extends AbstractDay {
         }
     }
 
-    long checkSum(List<Integer> mem) {
+    private long checkSum(List<Integer> mem) {
         long s = 0;
         for (int i = 0; i < mem.size(); i++) {
             if (!mem.get(i).equals(-1)) {
@@ -104,7 +104,7 @@ public class Day09 extends AbstractDay {
         return s;
     }
 
-    long checkSumFiles(List<Integer> files) {
+    private long checkSumFiles(List<Integer> files) {
         long s = 0;
         for (int id = 0; id < files.size(); id++) {
             int fileStart = files.get(id);

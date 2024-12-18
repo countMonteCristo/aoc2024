@@ -12,9 +12,9 @@ import aoc2024.utils.Vector2;
 
 public class Day06 extends AbstractDay {
 
-    Array2d<Character> map;
-    Vector2 start;
-    Vector2[] vels = {
+    private Array2d<Character> map;
+    private Vector2 start;
+    private Vector2[] vels = {
         new Vector2(0, -1), new Vector2(1, 0),
         new Vector2(0, 1), new Vector2(-1, 0)
     };
@@ -33,11 +33,11 @@ public class Day06 extends AbstractDay {
         }
     }
 
-    int rotateVelocity(int idx) {
+    private int rotateVelocity(int idx) {
         return (idx + 1) % vels.length;
     }
 
-    int startPath(Vector2 pos, int velIdx, Set<Pair<Vector2, Vector2>> states, Vector2 obs, boolean collect_path) {
+    private int startPath(Vector2 pos, int velIdx, Set<Pair<Vector2, Vector2>> states, Vector2 obs, boolean collect_path) {
         Set<Pair<Vector2, Vector2>> local_states = new HashSet<>();
         Set<Vector2> points = collect_path ? new HashSet<>() : null;
         while (true) {

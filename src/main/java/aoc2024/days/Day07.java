@@ -10,9 +10,9 @@ import aoc2024.utils.IO;
 
 public class Day07 extends AbstractDay {
 
-    List<TestCase> cases;
+    private List<TestCase> cases;
 
-    record TestCase(Long result, List<Long> args){}
+    private record TestCase(Long result, List<Long> args){}
 
     static TestCase parseTestCase(String line) {
         String[] parts = line.split(": ");
@@ -31,7 +31,7 @@ public class Day07 extends AbstractDay {
         return n;
     }
 
-    boolean checkSmart(TestCase test, int index, long res) {
+    private boolean checkSmart(TestCase test, int index, long res) {
         if (index == 0) {
             return res == test.args.getFirst();
         }

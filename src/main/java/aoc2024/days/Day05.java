@@ -14,8 +14,8 @@ import aoc2024.utils.Pair;
 
 public class Day05 extends AbstractDay {
 
-    Array2d<Integer> updates;
-    Set<Pair<Integer,Integer>> rules;
+    private Array2d<Integer> updates;
+    private Set<Pair<Integer,Integer>> rules;
 
     @Override
     public void prepare(String fn) throws IOException {
@@ -29,7 +29,7 @@ public class Day05 extends AbstractDay {
         updates = new Array2d<>(Stream.of(inputParts[1].split("\n")), ",", Integer::parseInt);
     }
 
-    Integer processUpdate(List<Integer> update) {
+    private Integer processUpdate(List<Integer> update) {
         for (int i = 0; i < update.size(); i++) {
             for (int j = i + 1; j < update.size(); j++) {
                 if (rules.contains(new Pair<>(update.get(j), update.get(i)))) {
@@ -40,7 +40,7 @@ public class Day05 extends AbstractDay {
         return update.get(update.size() / 2);
     }
 
-    Integer processsBrokenUpdate(List<Integer> broken) {
+    private Integer processsBrokenUpdate(List<Integer> broken) {
         for (int i = 0; i <= broken.size() / 2; i++) {
             for (int j = i + 1; j < broken.size(); j++) {
                 if (rules.contains(new Pair<>(broken.get(j), broken.get(i)))) {

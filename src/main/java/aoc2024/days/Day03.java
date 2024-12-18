@@ -10,12 +10,12 @@ import aoc2024.utils.IO;
 
 public class Day03 extends AbstractDay {
 
-    String content;
-    Boolean enabled;
-    final Pattern pat1 = Pattern.compile("mul\\((?<first>\\d{1,3}),(?<second>\\d{1,3})\\)");
-    final Pattern pat2 = Pattern.compile("((?<do>do)\\(\\))|((?<dont>don't)\\(\\))|((?<mul>mul)\\((?<first>\\d{1,3}),(?<second>\\d{1,3})\\))");
+    private String content;
+    private Boolean enabled;
+    private final Pattern pat1 = Pattern.compile("mul\\((?<first>\\d{1,3}),(?<second>\\d{1,3})\\)");
+    private final Pattern pat2 = Pattern.compile("((?<do>do)\\(\\))|((?<dont>don't)\\(\\))|((?<mul>mul)\\((?<first>\\d{1,3}),(?<second>\\d{1,3})\\))");
 
-    Function<MatchResult, Long> evalMul = r -> Long.parseLong(r.group("first")) * Long.valueOf(r.group("second"));
+    private Function<MatchResult, Long> evalMul = r -> Long.parseLong(r.group("first")) * Long.valueOf(r.group("second"));
 
     @Override
     public void prepare(String fn) throws IOException {

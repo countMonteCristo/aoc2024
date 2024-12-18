@@ -10,16 +10,16 @@ import aoc2024.utils.Vector2;
 
 public class Day04 extends AbstractDay {
 
-    interface Findable {
+    private interface Findable {
         long call(String needle, int r, int c);
     }
 
-    Array2d<Character> table;
-    final List<Vector2> dirs = Arrays.asList(
-        new Vector2(0, 1), new Vector2(0, -1), new Vector2( 1, 0), new Vector2(-1, 0),
-        new Vector2(1, 1), new Vector2(1, -1), new Vector2(-1, 1), new Vector2(-1, -1));
+    private Array2d<Character> table;
+    private final List<Vector2> dirs = Arrays.asList(
+        Vector2.DOWN, Vector2.UP, Vector2.RIGHT, Vector2.LEFT,
+        Vector2.BOTTOM_RIGHT, Vector2.TOP_RIGHT, Vector2.BOTTOM_LEFT, Vector2.TOP_LEFT);
 
-    boolean contains(String needle, int r, int c, Vector2 d) {
+    private boolean contains(String needle, int r, int c, Vector2 d) {
         for (int i = 0; i < needle.length(); i++) {
             if (table.contains(r, c) && (table.at(r, c) == needle.charAt(i))) {
                 r += d.y();
@@ -31,24 +31,24 @@ public class Day04 extends AbstractDay {
         return true;
     }
 
-    boolean contains_x(String needle, int r, int c) {
+    private boolean contains_x(String needle, int r, int c) {
         int half = needle.length() / 2;
         boolean one = contains(needle, r - half, c - half, dirs.get(4)) || contains(needle, r + half, c + half, dirs.get(7));
         boolean two = contains(needle, r - half, c + half, dirs.get(6)) || contains(needle, r + half, c - half, dirs.get(5));
         return one && two;
     }
 
-    long find(String needle, int r, int c) {
+    private long find(String needle, int r, int c) {
         return dirs.stream().filter(d -> contains(needle, r, c, d)).count();
     }
 
-    long find_x(String needle, int r, int c) {
+    private long find_x(String needle, int r, int c) {
         if ((table.at(r, c) == needle.charAt(needle.length() / 2)) && contains_x(needle, r, c))
             return 1L;
         return 0L;
     }
 
-    long count(String needle, Findable func) {
+    private long count(String needle, Findable func) {
         return table.elementStream()
             .map(e -> func.call(needle, e.first().y(), e.first().x()))
             .reduce(0L, Long::sum);

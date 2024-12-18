@@ -12,9 +12,9 @@ import aoc2024.utils.IO;
 
 public class Day17 extends AbstractDay {
 
-    public record Item(long n, int index) {}
+    private record Item(long n, int index) {}
 
-    class Computer {
+    private class Computer {
         public long A;
         public long B;
         public long C;
@@ -65,16 +65,16 @@ public class Day17 extends AbstractDay {
         }
     }
 
-    Long regA;
-    Long regB;
-    Long regC;
-    List<Integer> program;
+    private Long regA;
+    private Long regB;
+    private Long regC;
+    private List<Integer> program;
 
-    Computer newComp(long a, long b, long c) {
+    private Computer newComp(long a, long b, long c) {
         return new Computer(a, b, c);
     }
 
-    String convert(List<Integer> nums) {
+    private String convert(List<Integer> nums) {
         return String.join(",", nums.stream().map(Object::toString).collect(Collectors.toList()));
     }
 

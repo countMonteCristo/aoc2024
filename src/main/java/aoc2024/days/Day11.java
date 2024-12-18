@@ -11,8 +11,8 @@ import aoc2024.utils.Pair;
 
 public class Day11 extends AbstractDay {
 
-    HashMap<Long, Long> stones;
-    HashMap<Integer, Long> powers;
+    private HashMap<Long, Long> stones;
+    private HashMap<Integer, Long> powers;
 
     @Override
     public void prepare(String fn) throws IOException {
@@ -22,7 +22,7 @@ public class Day11 extends AbstractDay {
         powers = new HashMap<>();
     }
 
-    int countDigits(long stone) {
+    private int countDigits(long stone) {
         int count = 0;
         while (stone > 0) {
             stone /= 10;
@@ -31,7 +31,7 @@ public class Day11 extends AbstractDay {
         return count;
     }
 
-    Pair<Long, Long> splitStone(long stone, int numDigits) {
+    private Pair<Long, Long> splitStone(long stone, int numDigits) {
         long power = 1;
         if (powers.containsKey(numDigits)) {
             power = powers.get(numDigits);
@@ -45,7 +45,7 @@ public class Day11 extends AbstractDay {
         return new Pair<>(stone / power, stone % power);
     }
 
-    long solve(int N) {
+    private long solve(int N) {
         var current = stones;
 
         for (int i = 0; i < N; i++) {
