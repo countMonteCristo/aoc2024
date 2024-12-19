@@ -29,6 +29,6 @@ public abstract class AbstractDay {
         currentStartMs = System.currentTimeMillis();
     }
     protected <T> boolean check(T actual, T expected, boolean strict) {
-        return Utils.<T>check(currentPart, actual, expected, strict, System.currentTimeMillis() - currentStartMs);
+        return Utils.check(currentPart, actual, expected, strict, System.currentTimeMillis() - currentStartMs);
     }
 }
