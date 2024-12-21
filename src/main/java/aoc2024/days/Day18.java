@@ -43,8 +43,7 @@ public class Day18 extends AbstractDay {
     private Item findShortestPath(Vector2 begin, Vector2 end, HashSet<Vector2> fallen, Vector2 size) {
         Item minItem = null;
         PriorityQueue<Item> q = new PriorityQueue<>(
-            (p1, p2) -> Integer.compare(p1.path.size() /*+ p1.last.manhattan(end)*/,
-                                        p2.path.size() /*+ p2.last.manhattan(end)*/));
+            (p1, p2) -> Integer.compare(p1.path.size(), p2.path.size()));
 
         HashSet<Vector2> visited = new HashSet<>();
 
