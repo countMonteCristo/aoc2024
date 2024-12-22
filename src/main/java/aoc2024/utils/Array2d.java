@@ -25,6 +25,17 @@ public class Array2d<T> {
         data_ = data;
     }
 
+    public Array2d(T[][] data) {
+        data_ = new ArrayList<>();
+        for (int r = 0; r < data.length; r++) {
+            ArrayList<T> row = new ArrayList<>();
+            for (int c = 0; c < data[r].length; c++) {
+                row.add(data[r][c]);
+            }
+            data_.add(row);
+        }
+    }
+
     public static Array2d<Character> parseCharTable(String fn) throws IOException {
         return new Array2d<>(fn, "", s -> s.charAt(0));
     }
