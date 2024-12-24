@@ -1,22 +1,43 @@
 package aoc2024.days;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Stream;
 
 import aoc2024.utils.IO;
 
 
 public class Day23 extends AbstractDay {
 
-    private HashMap<String, HashSet<String>> net;
+    private HashMap<String, Set<String>> net;
     private Set<String> maxClique;
+
+    private<T> Set<T> intersection(Set<T> A, Set<T> B) {
+        Set<T> i = new HashSet<>(A);
+        i.retainAll(B);
+        return i;
+    }
+
+    // https://en.wikipedia.org/wiki/Bron%E2%80%93Kerbosch_algorithm
+    private void BronKerbosh(Set<String> R, Set<String> P, Set<String> X) {
+        if (P.isEmpty() && X.isEmpty()) {
+            if ((maxClique == null) || (R.size() > maxClique.size()))
+                maxClique = R;
+            return;
+        }
+        for (String v: new HashSet<>(P)) {
+            Set<String> newR = new HashSet<>(R);
+            newR.add(v);
+            BronKerbosh(newR, intersection(P, net.get(v)), intersection(X, net.get(v)));
+            P.remove(v);
+            X.add(v);
+        }
+    }
+
 
     @Override
     public void prepare(String fn) throws IOException {
@@ -24,11 +45,8 @@ public class Day23 extends AbstractDay {
         IO.readLines(fn)
             .forEach(line -> {
                 String[] parts = line.split("-");
-                if (!net.containsKey(parts[0]))
-                    net.put(parts[0], new HashSet<>());
+                Stream.of(parts).forEach(p -> net.putIfAbsent(p, new HashSet<>()));
                 net.get(parts[0]).add(parts[1]);
-                if (!net.containsKey(parts[1]))
-                    net.put(parts[1], new HashSet<>());
                 net.get(parts[1]).add(parts[0]);
             });
     }
@@ -48,31 +66,6 @@ public class Day23 extends AbstractDay {
             }
         }
         return check(triples.size(), 1238, strict);
-    }
-
-    // https://en.wikipedia.org/wiki/Bron%E2%80%93Kerbosch_algorithm
-    private void BronKerbosh(Set<String> R, Set<String> P, Set<String> X) {
-        if (P.isEmpty() && X.isEmpty()) {
-            if ((maxClique == null) || (R.size() > maxClique.size()))
-                maxClique = R;
-            return;
-        }
-        for (String v: new HashSet<>(P)) {
-            Set<String> newR = new HashSet<>(R);
-            newR.add(v);
-            BronKerbosh(newR, intersection(P, net.get(v)), intersection(X, net.get(v)));
-            P.remove(v);
-            X.add(v);
-        }
-    }
-
-    private Set<String> intersection(Set<String> A, Set<String> B) {
-        Set<String>i = new HashSet<>();
-        for (String x: A) {
-            if (B.contains(x))
-                i.add(x);
-        }
-        return i;
     }
 
     @Override

@@ -102,8 +102,8 @@ public class Day22 extends AbstractDay {
         //         .reduce(0L, Long::sum));
         // }
         long max = 1455L;
-        System.out.println("Dumb bruteforce solution works for day 22, but takes a lot of time.\n" +
-                           " Uncomment part2 code if you want to actually run it.");
+        System.out.println("** Dumb bruteforce solution works for day 22, but takes a lot of time (~6s).\n" +
+                           "** Uncomment part2 code if you want to actually run it.");
 
         return check(max, 1455L, strict);
     }
